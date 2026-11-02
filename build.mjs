@@ -93,6 +93,8 @@ await write('robots.txt', `User-agent: *\nAllow: /\n${S.siteUrl ? `Sitemap: ${S.
 const today = new Date().toISOString().slice(0, 10);
 await write('sitemap.xml', `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${pages.map(p => `  <url><loc>${(S.siteUrl || '')}/${p.loc}</loc><lastmod>${today}</lastmod><priority>${p.priority.toFixed(1)}</priority></url>`).join('\n')}\n</urlset>\n`);
 await write('.nojekyll', '');
-await write('CNAME.example', (S.siteUrl || 'https://example.com').replace(/^https?:\/\//, ''));
+// Custom domain for GitHub Pages: taken from Airtable's site_url (or SITE_DOMAIN env) so it survives every rebuild.
+const domain = process.env.SITE_DOMAIN || (S.siteUrl && !/github\.io/.test(S.siteUrl) ? S.siteUrl.replace(/^https?:\/\//, '') : '');
+if (domain) await write('CNAME', domain + '\n');
 
 console.log(`Built ${pages.length + 2} pages for ${listings.length} approved listings (theme: ${S.theme}) → ${OUT}`);

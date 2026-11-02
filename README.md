@@ -49,10 +49,9 @@ live at `https://portfolioswcci.github.io/gift-local-whitsunday/`.
    - `A` records for `@` → `185.199.108.153`, `185.199.109.153`, `185.199.110.153`, `185.199.111.153`
    - `CNAME` for `www` → `portfolioswcci.github.io`
 3. Repo → **Settings → Pages → Custom domain** → enter the domain, tick **Enforce HTTPS**.
-4. Repo → **Settings → Secrets and variables → Actions → Variables → New repository variable**:
-   `SITE_DOMAIN` = `whitsundaysgiftguide.com.au` (keeps the domain through rebuilds).
-5. In Airtable **Settings**, make sure `site_url` is `https://whitsundaysgiftguide.com.au` (no trailing slash).
-6. Submit the sitemap to Google: https://search.google.com/search-console → add the domain →
+4. In Airtable **Settings**, make sure `site_url` is `https://whitsundaysgiftguide.com.au` (no trailing slash) —
+   the build writes the domain file from it, so the domain survives every rebuild.
+5. Submit the sitemap to Google: https://search.google.com/search-console → add the domain →
    Sitemaps → `https://whitsundaysgiftguide.com.au/sitemap.xml`.
 
 ## Day to day
