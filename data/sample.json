@@ -1,0 +1,459 @@
+{
+  "listings": [
+    {
+      "id": "recTheCoralPantry",
+      "Business name": "The Coral Pantry",
+      "Status": "Approved",
+      "Listing level": "Featured",
+      "Town": "Cannonvale",
+      "Categories": [
+        "Food & drink",
+        "Hampers",
+        "Homewares & kitchen"
+      ],
+      "Good gifts for": [
+        "The foodie",
+        "Mum",
+        "Secret Santa",
+        "Teachers & coaches",
+        "Colleagues & clients"
+      ],
+      "Price bands": [
+        "Under $25",
+        "$25–$50",
+        "$50–$100"
+      ],
+      "Description": "Small-batch sauces, chutneys and spice blends made in our Cannonvale kitchen with produce from Bowen and Proserpine growers. We build hampers to order from $45 and wrap them in-store, so you can walk out with a finished gift. New for Christmas: a twelve-jar advent box and a chilli lover's set.",
+      "Sells gift vouchers": true,
+      "Ships Australia-wide": true,
+      "Open Christmas Eve": true,
+      "At a December market": true,
+      "Admin notes": "SAMPLE — fictional business. Delete before launch.",
+      "Street address": "Shop 4, [Street address], Cannonvale",
+      "Christmas trading hours": "Mon–Fri: 9am–5pm\nSaturday: 8am–2pm\nSunday (December): 9am–1pm\nChristmas Eve: 8am–12pm",
+      "Last orders / key dates": "Last hamper orders Friday 19 December"
+    },
+    {
+      "id": "recSaltwaterSailC",
+      "Business name": "Saltwater Sail Co.",
+      "Status": "Approved",
+      "Listing level": "Featured",
+      "Town": "Airlie Beach",
+      "Categories": [
+        "Experiences & tours"
+      ],
+      "Good gifts for": [
+        "Dad",
+        "The hard-to-buy-for",
+        "Someone who has everything"
+      ],
+      "Price bands": [
+        "$100+"
+      ],
+      "Description": "Half-day and sunset sails from Airlie Beach for up to eight guests. Gift vouchers are open-dated for twelve months and can be emailed the same day, so they work for the last-minute shopper too. Private charters for Christmas week book out early; sunset sails run daily.",
+      "Sells gift vouchers": true,
+      "Ships Australia-wide": false,
+      "Open Christmas Eve": false,
+      "At a December market": false,
+      "Admin notes": "SAMPLE — fictional business. Delete before launch.",
+      "Street address": "Abell Point Marina, Airlie Beach"
+    },
+    {
+      "id": "recProserpineClay",
+      "Business name": "Proserpine Clay Studio",
+      "Status": "Approved",
+      "Listing level": "Featured",
+      "Town": "Proserpine",
+      "Categories": [
+        "Art & makers",
+        "Kids",
+        "Lessons & classes"
+      ],
+      "Good gifts for": [
+        "Mum",
+        "The kids",
+        "Secret Santa"
+      ],
+      "Price bands": [
+        "$25–$50",
+        "$50–$100"
+      ],
+      "Description": "Hand-thrown mugs, platters and Christmas ornaments from a Main Street studio, plus school-holiday pottery classes for kids and wheel nights for adults. Commissions close 5 December; shelf stock and class vouchers right up to Christmas Eve.",
+      "Sells gift vouchers": true,
+      "Ships Australia-wide": false,
+      "Open Christmas Eve": true,
+      "At a December market": false,
+      "Admin notes": "SAMPLE — fictional business. Delete before launch.",
+      "Street address": "Main Street, Proserpine",
+      "Christmas trading hours": "Thu–Sun: 9am–4pm",
+      "Last orders / key dates": "Commissions close 5 December"
+    },
+    {
+      "id": "recHarbourlineKit",
+      "Business name": "Harbourline Kitchen",
+      "Status": "Approved",
+      "Listing level": "Basic",
+      "Town": "Airlie Beach",
+      "Categories": [
+        "Dining"
+      ],
+      "Good gifts for": [
+        "The foodie",
+        "The hard-to-buy-for",
+        "Colleagues & clients"
+      ],
+      "Price bands": [
+        "$50–$100",
+        "$100+"
+      ],
+      "Description": "Waterfront dining on the Airlie Beach esplanade. Gift vouchers in any amount, emailed instantly and valid for three years. Christmas Day lunch bookings are open now.",
+      "Sells gift vouchers": true,
+      "Ships Australia-wide": false,
+      "Open Christmas Eve": false,
+      "At a December market": false,
+      "Admin notes": "SAMPLE — fictional business. Delete before launch."
+    },
+    {
+      "id": "recBowenMangoColl",
+      "Business name": "Bowen Mango Collective",
+      "Status": "Approved",
+      "Listing level": "Basic",
+      "Town": "Bowen",
+      "Categories": [
+        "Food & drink",
+        "Markets"
+      ],
+      "Good gifts for": [
+        "The foodie",
+        "Secret Santa",
+        "Colleagues & clients"
+      ],
+      "Price bands": [
+        "$25–$50"
+      ],
+      "Description": "Dried mango, mango chutney and Christmas mango cheeks from Bowen growers. Gift boxes from $30, posted anywhere in Australia until 15 December.",
+      "Sells gift vouchers": false,
+      "Ships Australia-wide": true,
+      "Open Christmas Eve": false,
+      "At a December market": true,
+      "Admin notes": "SAMPLE — fictional business. Delete before launch.",
+      "Last orders / key dates": "Posting closes 15 December"
+    },
+    {
+      "id": "recReeftoTableCoo",
+      "Business name": "Reef to Table Cooking School",
+      "Status": "Approved",
+      "Listing level": "Basic",
+      "Town": "Cannonvale",
+      "Categories": [
+        "Experiences & tours",
+        "Lessons & classes",
+        "Food & drink"
+      ],
+      "Good gifts for": [
+        "The foodie",
+        "Someone who has everything"
+      ],
+      "Price bands": [
+        "$100+"
+      ],
+      "Description": "Three-hour seafood and tropical produce classes in Cannonvale. Gift a seat or a private class for four. January dates are released in December.",
+      "Sells gift vouchers": true,
+      "Ships Australia-wide": false,
+      "Open Christmas Eve": false,
+      "At a December market": false,
+      "Admin notes": "SAMPLE — fictional business. Delete before launch."
+    },
+    {
+      "id": "recProserpineRoas",
+      "Business name": "Proserpine Roasters",
+      "Status": "Approved",
+      "Listing level": "Basic",
+      "Town": "Proserpine",
+      "Categories": [
+        "Food & drink",
+        "Drinks"
+      ],
+      "Good gifts for": [
+        "Dad",
+        "The foodie",
+        "Secret Santa"
+      ],
+      "Price bands": [
+        "Under $25",
+        "$25–$50",
+        "$50–$100"
+      ],
+      "Description": "Coffee roasted on Main Street. Three-month subscriptions, Christmas blend tins and brewing kits. Pick up in store or posted every fortnight.",
+      "Sells gift vouchers": true,
+      "Ships Australia-wide": true,
+      "Open Christmas Eve": false,
+      "At a December market": false,
+      "Admin notes": "SAMPLE — fictional business. Delete before launch."
+    },
+    {
+      "id": "recCollinsvilleGe",
+      "Business name": "Collinsville General & Co.",
+      "Status": "Approved",
+      "Listing level": "Basic",
+      "Town": "Collinsville",
+      "Categories": [
+        "Homewares & kitchen",
+        "Food & drink"
+      ],
+      "Good gifts for": [
+        "Dad",
+        "Mum",
+        "The foodie"
+      ],
+      "Price bands": [
+        "Under $25",
+        "$25–$50",
+        "$50–$100",
+        "$100+"
+      ],
+      "Description": "Country kitchenware, local honey and preserves, and a cheese board range made from Whitsundays timber. Open late Thursdays in December.",
+      "Sells gift vouchers": false,
+      "Ships Australia-wide": false,
+      "Open Christmas Eve": false,
+      "At a December market": false,
+      "Admin notes": "SAMPLE — fictional business. Delete before launch."
+    },
+    {
+      "id": "recJubileeBakehou",
+      "Business name": "Jubilee Bakehouse",
+      "Status": "Approved",
+      "Listing level": "Basic",
+      "Town": "Jubilee Pocket",
+      "Categories": [
+        "Food & drink",
+        "Markets"
+      ],
+      "Good gifts for": [
+        "The foodie",
+        "Mum"
+      ],
+      "Price bands": [
+        "$25–$50"
+      ],
+      "Description": "Sourdough, rum balls and pre-order Christmas puddings and gingerbread houses. Pudding orders close 10 December; collect from 20 December.",
+      "Sells gift vouchers": false,
+      "Ships Australia-wide": false,
+      "Open Christmas Eve": false,
+      "At a December market": true,
+      "Admin notes": "SAMPLE — fictional business. Delete before launch.",
+      "Last orders / key dates": "Pudding orders close 10 December"
+    },
+    {
+      "id": "recShuteHarbourDi",
+      "Business name": "Shute Harbour Distilling",
+      "Status": "Approved",
+      "Listing level": "Basic",
+      "Town": "Shute Harbour",
+      "Categories": [
+        "Drinks",
+        "Experiences & tours"
+      ],
+      "Good gifts for": [
+        "Dad",
+        "Colleagues & clients"
+      ],
+      "Price bands": [
+        "$50–$100"
+      ],
+      "Description": "Small-batch gin and rum, tasting flights and distillery tours. Gift packs with two glasses and a tonic from the region.",
+      "Sells gift vouchers": true,
+      "Ships Australia-wide": false,
+      "Open Christmas Eve": false,
+      "At a December market": false,
+      "Admin notes": "SAMPLE — fictional business. Delete before launch."
+    },
+    {
+      "id": "recStudioNineHair",
+      "Business name": "Studio Nine Hair & Day Spa",
+      "Status": "Approved",
+      "Listing level": "Basic",
+      "Town": "Cannonvale",
+      "Categories": [
+        "Beauty & wellbeing"
+      ],
+      "Good gifts for": [
+        "Mum",
+        "The hard-to-buy-for",
+        "Teachers & coaches"
+      ],
+      "Price bands": [
+        "$50–$100",
+        "$100+"
+      ],
+      "Description": "Facials, massage and blow-dry packages in Cannonvale, with gift vouchers good for twelve months. The 'Afternoon off' package pairs a 60-minute massage with a hair treatment and bubbles. Open late Thursdays in December.",
+      "Sells gift vouchers": true,
+      "Ships Australia-wide": false,
+      "Open Christmas Eve": false,
+      "At a December market": false,
+      "Admin notes": "SAMPLE — fictional business. Delete before launch."
+    },
+    {
+      "id": "recLittleReefToyS",
+      "Business name": "Little Reef Toy Shop",
+      "Status": "Approved",
+      "Listing level": "Basic",
+      "Town": "Airlie Beach",
+      "Categories": [
+        "Kids"
+      ],
+      "Good gifts for": [
+        "The kids"
+      ],
+      "Price bands": [
+        "Under $25",
+        "$25–$50",
+        "$50–$100"
+      ],
+      "Description": "Wooden toys, puzzles and beach gear. Layby until 20 December and a Santa letterbox in store.",
+      "Sells gift vouchers": false,
+      "Ships Australia-wide": false,
+      "Open Christmas Eve": true,
+      "At a December market": false,
+      "Admin notes": "SAMPLE — fictional business. Delete before launch."
+    },
+    {
+      "id": "recPalmPaperBooks",
+      "Business name": "Palm & Paper Books",
+      "Status": "Approved",
+      "Listing level": "Basic",
+      "Town": "Cannonvale",
+      "Categories": [
+        "Books & stationery"
+      ],
+      "Good gifts for": [
+        "Mum",
+        "Secret Santa",
+        "Teachers & coaches",
+        "The kids"
+      ],
+      "Price bands": [
+        "Under $25",
+        "$25–$50"
+      ],
+      "Description": "Independent bookshop with a staff-picked Christmas table, journals and local authors' titles. Free wrapping.",
+      "Sells gift vouchers": false,
+      "Ships Australia-wide": false,
+      "Open Christmas Eve": true,
+      "At a December market": false,
+      "Admin notes": "SAMPLE — fictional business. Delete before launch."
+    },
+    {
+      "id": "recBowenBotanical",
+      "Business name": "Bowen Botanicals",
+      "Status": "Pending",
+      "Listing level": "Basic",
+      "Town": "Bowen",
+      "Categories": [
+        "Beauty & wellbeing",
+        "Markets"
+      ],
+      "Good gifts for": [
+        "Mum",
+        "Secret Santa"
+      ],
+      "Price bands": [
+        "Under $25",
+        "$25–$50"
+      ],
+      "Description": "Mango-seed butter balms, soaps and candles made in Bowen. Gift sets boxed in-store.",
+      "Sells gift vouchers": false,
+      "Ships Australia-wide": false,
+      "Open Christmas Eve": false,
+      "At a December market": true,
+      "Admin notes": "SAMPLE — fictional business. Delete before launch."
+    }
+  ],
+  "settings": [
+    {
+      "id": "recset0",
+      "Setting": "theme",
+      "Value": "christmas"
+    },
+    {
+      "id": "recset1",
+      "Setting": "site_url",
+      "Value": "https://giftlocalwhitsundays.com.au"
+    },
+    {
+      "id": "recset2",
+      "Setting": "campaign_year",
+      "Value": "2026"
+    },
+    {
+      "id": "recset3",
+      "Setting": "registration_close",
+      "Value": "[DATE]"
+    },
+    {
+      "id": "recset4",
+      "Setting": "campaign_dates",
+      "Value": "[DATE] to 24 December"
+    },
+    {
+      "id": "recset5",
+      "Setting": "contact_name",
+      "Value": "Cait Fleming"
+    },
+    {
+      "id": "recset6",
+      "Setting": "contact_email",
+      "Value": "[EMAIL]"
+    },
+    {
+      "id": "recset7",
+      "Setting": "contact_phone",
+      "Value": "[PHONE]"
+    },
+    {
+      "id": "recset8",
+      "Setting": "registration_form_url",
+      "Value": "https://airtable.com/appPoEgYaSjA1tpJg/pagFH4bjjw327kXFA/form"
+    },
+    {
+      "id": "recset9",
+      "Setting": "price_basic",
+      "Value": "Free for members / $35 non-members"
+    },
+    {
+      "id": "recset10",
+      "Setting": "price_featured",
+      "Value": "$75 members / $125 non-members"
+    },
+    {
+      "id": "recset11",
+      "Setting": "price_partner",
+      "Value": "$350 members / $550 non-members"
+    },
+    {
+      "id": "recset12",
+      "Setting": "newspaper_name",
+      "Value": "[NEWSPAPER NAME]"
+    },
+    {
+      "id": "recset13",
+      "Setting": "partners",
+      "Value": ""
+    }
+  ],
+  "markets": [
+    {
+      "id": "recm1",
+      "Market": "Airlie Beach Cruise Ship Markets",
+      "Town": "Airlie Beach",
+      "Show on site": true
+    },
+    {
+      "id": "recm2",
+      "Market": "Proserpine Community Markets",
+      "Town": "Proserpine",
+      "Show on site": true
+    }
+  ],
+  "note": "Snapshot of the sample rows loaded into Airtable on 30 Oct 2026. Used only when AIRTABLE_TOKEN is not set."
+}

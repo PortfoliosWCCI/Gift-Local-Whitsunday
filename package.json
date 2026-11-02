@@ -1,0 +1,12 @@
+{
+  "name": "gift-local-whitsundays",
+  "version": "1.0.0",
+  "description": "Gift Local | The Whitsundays — static gift-guide website generated from Airtable",
+  "type": "module",
+  "private": true,
+  "engines": { "node": ">=20" },
+  "scripts": {
+    "build": "node build.mjs",
+    "preview": "node build.mjs && npx -y serve dist"
+  }
+}
