@@ -64,7 +64,7 @@ live at `https://portfolioswcci.github.io/gift-local-whitsunday/`.
 | Switch to the year-round look     | Settings → `theme` → `year-round`.                                         |
 | Change prices, dates, contact     | Settings table → edit the Value.                                           |
 | Add a partner to the footer       | Settings → `partners` → one name per line.                                 |
-| Embed a different form            | Settings → `registration_form_url`.                                        |
+| Point registrations at an EOI form | Settings → `registration_form_url` = the EOI link. Airtable links embed on the page; any other link shows as a button. Optional: `registration_button_text`, `registration_intro`, `registration_note`. |
 
 ## Before launch
 - Delete the 14 **SAMPLE** rows in Listings (filter Admin notes contains "SAMPLE"). They are fictional.

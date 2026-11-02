@@ -68,7 +68,7 @@ export function readSettings(rows) {
     siteUrl: (s.site_url || '').replace(/\/+$/, ''), year: s.campaign_year || String(new Date().getFullYear()),
     regClose: s.registration_close || '[DATE]', campaignDates: s.campaign_dates || '[DATE] to 24 December',
     contactName: s.contact_name || '', contactEmail: s.contact_email || '', contactPhone: s.contact_phone || '',
-    formUrl: s.registration_form_url || '', newspaper: s.newspaper_name || 'the newspaper',
+    formUrl: s.registration_form_url || '', formButton: s.registration_button_text || '', formIntro: s.registration_intro || '', formNote: s.registration_note || '', newspaper: s.newspaper_name || 'the newspaper',
     priceBasic: s.price_basic || 'Free for members', priceFeatured: s.price_featured || '', pricePartner: s.price_partner || '',
     partners: (s.partners || '').split('\n').map(x => x.trim()).filter(Boolean),
   };
@@ -237,7 +237,7 @@ ${markets.length ? `<section id="markets" class="section-tight"><div class="wrap
 <section class="section" style="padding-bottom:88px"><div class="wrap">
   <div class="boxed">
     <div class="c7"><span class="eyebrow">For Whitsundays businesses</span><h2 style="font-size:40px">Sell something people could give? Get listed.</h2><p class="lede" style="font-size:17px">A basic listing is free for every Chamber member in the region. Featured listings and campaign partner packages put you in the newspaper lift-out, on social and at the top of the guide. Registrations close <b>${esc(S.regClose)}</b>.</p>
-      <div style="display:flex;gap:12px;flex-wrap:wrap;padding-top:8px"><a class="btn btn-navy" href="${href('get-listed/')}">See the options</a><a class="btn btn-ghost" href="${href('get-listed/', '#register')}">Register now, 5 minutes</a></div></div>
+      <div style="display:flex;gap:12px;flex-wrap:wrap;padding-top:8px"><a class="btn btn-navy" href="${href('get-listed/')}">See the options</a><a class="btn btn-ghost" href="${href('get-listed/', '#register')}">${S.formUrl && !/airtable\.com/.test(S.formUrl) ? 'Register your interest' : 'Register now, 5 minutes'}</a></div></div>
     <div class="c5 tiers-mini"><div><span class="display">Free</span><small>Basic listing (members)</small></div><div style="background:var(--blush)"><span class="display" style="color:var(--coral-dk)">Featured</span><small>${esc(S.priceFeatured.split('/')[0].trim() || 'Paid')}</small></div><div style="background:var(--navy)"><span class="display" style="color:var(--gold)">Partner</span><small style="color:var(--on-navy)">${esc(S.pricePartner.split('/')[0].trim() || 'Paid')}</small></div></div>
   </div>
 </div></section>`;
@@ -357,13 +357,18 @@ export function getListedPage(ctx) {
   const tick = c => `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="${c}" stroke-width="3" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>`;
   const split = p => { const [m, n] = p.split('/').map(x => x.trim()); return { m: m || '', n: n || '' }; };
   const pb = split(S.priceBasic), pf = split(S.priceFeatured), pp = split(S.pricePartner);
-  const formEmbed = S.formUrl ? `<div class="formwrap"><iframe class="airtable-embed" src="${esc(S.formUrl.replace('/form', '/form').replace('airtable.com/', 'airtable.com/embed/'))}" title="Registration form" loading="lazy"></iframe></div><p style="font-size:14px;color:var(--muted);margin-top:12px">Form not loading? <a href="${esc(S.formUrl)}" rel="noopener" target="_blank">Open it in a new tab</a>.</p>` : `<div class="empty">Registration form coming soon. In the meantime, email ${esc(S.contactEmail)}.</div>`;
+  // Airtable form links are embedded on the page; any other link (an EOI form elsewhere) becomes a button.
+  const isAirtable = /airtable\.com/.test(S.formUrl);
+  const btnText = S.formButton || (isAirtable ? 'Register my business' : 'Register your interest');
+  const formEmbed = !S.formUrl ? `<div class="empty">Registration form coming soon. In the meantime, email ${esc(S.contactEmail)}.</div>`
+    : isAirtable ? `<div class="formwrap"><iframe class="airtable-embed" src="${esc(S.formUrl.replace('airtable.com/', 'airtable.com/embed/'))}" title="Registration form" loading="lazy"></iframe></div><p style="font-size:14px;color:var(--muted);margin-top:12px">Form not loading? <a href="${esc(S.formUrl)}" rel="noopener" target="_blank">Open it in a new tab</a>.</p>`
+    : `<div class="boxed" style="grid-template-columns:minmax(0,1fr);box-shadow:8px 8px 0 var(--gold)"><div style="display:flex;flex-direction:column;gap:16px;align-items:flex-start"><h3 style="font-size:28px">${esc(S.formIntro || 'Step one: tell us you\'re keen.')}</h3><p class="lede" style="font-size:17px">${esc(S.formNote || 'Takes two minutes. We\'ll come back to you with the listing form and your rate.')}</p><a class="btn btn-coral btn-lg" href="${esc(S.formUrl)}" rel="noopener" target="_blank">${esc(btnText)} ${ICON.arrow}</a></div></div>`;
   const body = `
 <section class="dark" style="position:relative;overflow:hidden"><svg aria-hidden="true" style="position:absolute;right:0;top:0;height:100%;width:40%" viewBox="0 0 500 400" preserveAspectRatio="xMaxYMid slice"><circle cx="380" cy="90" r="60" fill="#CF4630"/><circle cx="380" cy="90" r="60" fill="none" stroke="#E0A83A" stroke-width="4" stroke-dasharray="6 10"/><circle cx="470" cy="260" r="90" fill="#E0A83A"/><path d="M470 170v180M380 260h180" stroke="#15213A" stroke-width="6"/><circle cx="300" cy="330" r="36" fill="#1FA9B8"/></svg>
 <div class="wrap" style="position:relative;display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:32px;padding-top:72px;padding-bottom:72px"><div style="grid-column:span 7;display:flex;flex-direction:column;gap:20px">
   <span class="eyebrow">For Whitsundays businesses</span><h1 style="color:#fff;font-size:clamp(38px,5.5vw,64px)">Get in front of every ${S.isXmas ? 'Christmas ' : ''}shopper in the region.</h1>
   <p class="lede" style="color:#D8DFEC;max-width:560px">Gift Local is a campaign, not a PDF. A dedicated website, a newspaper lift-out, social content and in-town promotion, all pointing people to businesses like yours. A basic listing is free for every Chamber member in the Whitsundays.</p>
-  <div style="display:flex;gap:12px;flex-wrap:wrap;padding-top:6px"><a class="btn btn-coral btn-lg" href="#register">Register my business</a><a class="btn btn-lg" href="#tiers" style="border-color:#F6E7D2;color:#F6E7D2">Compare the options</a></div>
+  <div style="display:flex;gap:12px;flex-wrap:wrap;padding-top:6px"><a class="btn btn-coral btn-lg" href="#register">${esc(btnText)}</a><a class="btn btn-lg" href="#tiers" style="border-color:#F6E7D2;color:#F6E7D2">Compare the options</a></div>
   <div class="stats"><span><b>${esc(S.campaignDates)}</b>campaign dates</span><span><b>${esc(S.regClose)}</b>registrations close</span><span><b>5 mins</b>to register online</span></div>
 </div></div></section>
 
