@@ -22,6 +22,7 @@ export const BUYING_FOR = [
   { name: 'The hard-to-buy-for', blurb: 'Vouchers and experiences. Done.' },
   { name: 'Someone who has everything', blurb: 'Give them a day on the water instead.', cls: 'tile-navy' },
   { name: 'Colleagues & clients', blurb: 'Local, generous and easy to post.' },
+  { name: 'Business owners', blurb: 'For the one who never clocks off.' },
 ];
 export const PRICE_BANDS = [
   { name: 'Under $25', xmas: 'Stocking fillers', year: 'Little treats', sub: 'Kris Kringle, teachers, the office' },
@@ -110,7 +111,7 @@ export function priceRange(prices) {
 const truncate = (s, n) => s.length <= n ? s : s.slice(0, n).replace(/\s+\S*$/, '') + '…';
 
 function topband(S, href, right) {
-  return `<div class="topband"><div class="wrap"><span>${S.isXmas ? `Christmas ${esc(S.year)}` : 'Gift Local'} · Powered by the Whitsundays business community</span><span class="hide-m">${right}</span></div></div>`;
+  return `<div class="topband"><div class="wrap"><span>${S.isXmas ? `Christmas ${esc(S.year)}` : 'Gift Local'} · Powered by Whitsundays Chamber of Commerce and Industry</span><span class="hide-m">${right}</span></div></div>`;
 }
 function nav(S, href, current) {
   const link = (to, label, key) => `<a class="navlink" href="${href(to)}"${current === key ? ' aria-current="page"' : ''}>${label}</a>`;
@@ -123,9 +124,8 @@ function nav(S, href, current) {
   </div></nav></header>`;
 }
 function footer(S, href) {
-  const partners = S.partners.length ? S.partners.map(p => `<div>${esc(p)}</div>`).join('') : ['Partner logo', 'Partner logo', 'Partner logo', 'Partner logo', 'Media partner', 'Council'].map(p => `<div>${p}</div>`).join('');
   return `<footer class="foot"><div class="wrap">
-  <div style="display:flex;flex-direction:column;gap:16px"><span class="eyebrow">Powered by the Whitsundays business community</span><div class="logos">${partners}</div></div>
+  <div style="display:flex;flex-direction:column;gap:16px"><span class="eyebrow">Powered by Whitsundays Chamber of Commerce and Industry</span></div>
   <div class="footcols">
     <div><b>Browse</b><a href="${href('browse/')}">All listings</a><a href="${href('for/')}">Who are you buying for</a><a href="${href('price/')}">By budget</a><a href="${href('towns/')}">By town</a><a href="${href('vouchers/')}">Vouchers &amp; experiences</a></div>
     <div><b>Businesses</b><a href="${href('get-listed/')}">Get listed</a><a href="${href('get-listed/', '#tiers')}">Featured &amp; partner packages</a><a href="${href('get-listed/', '#faq')}">Questions</a></div>
