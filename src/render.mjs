@@ -237,7 +237,7 @@ ${featuredOrTop.length ? `<section class="dark section" style="margin-top:40px;p
 
 ${markets.length ? `<section id="markets" class="section-tight"><div class="wrap" style="display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:32px;align-items:start">
   <div style="grid-column:span 5;display:flex;flex-direction:column;gap:12px"><span class="eyebrow">In person</span><h2 style="font-size:40px">Catch the makers at the markets</h2><p class="lede" style="font-size:17px">Many listed businesses also trade at the region's markets${S.isXmas ? ' in December' : ''}.</p></div>
-  <div style="grid-column:span 7;display:flex;flex-direction:column;gap:12px">${markets.map(m => `<div class="rowcard"><b>${esc(m.Market)}</b><span>${esc(fmtDate(m.Date))}${m.Town ? ` · ${esc(m.Town)}` : ''}</span></div>`).join('')}</div>
+  <div style="grid-column:span 7;display:flex;flex-direction:column;gap:12px">${markets.map(m => `<div class="rowcard"><b>${esc(m.Market)}</b><span>${esc([m.Date ? fmtDate(m.Date) : '', m.Town].filter(Boolean).join(' · '))}${/^https?:\/\//.test(m.Link || '') ? `${m.Date || m.Town ? ' · ' : ''}<a class="more" href="${esc(m.Link)}" target="_blank" rel="noopener">See market dates →</a>` : ''}</span></div>`).join('')}</div>
 </div></section>` : ''}
 
 <section class="section" style="padding-bottom:88px"><div class="wrap">
