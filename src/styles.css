@@ -120,7 +120,7 @@ p{margin:0}
 .card p{font-size:15px;line-height:1.5;color:var(--ink-2)}
 .card .meta{font-size:14px;font-weight:700;color:var(--muted)}
 /* cards are one standard size: tags on a single row, name max 2 lines, blurb max 4 lines, details pinned to the bottom */
-.grid[data-hits]{grid-auto-rows:1fr}.card{height:100%}.card-body{flex:1}
+.grid[data-hits]{grid-auto-rows:1fr}[data-rotate]>:nth-child(n+4){display:none}.card{height:100%}.card-body{flex:1}
 .card .chips{flex-wrap:nowrap;overflow:hidden;-webkit-mask-image:linear-gradient(90deg,#000 calc(100% - 28px),transparent);mask-image:linear-gradient(90deg,#000 calc(100% - 28px),transparent)}
 .card .chips .chip{flex:none;font-size:12px;padding:3px 9px}
 .card h3{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-height:2.3em}
