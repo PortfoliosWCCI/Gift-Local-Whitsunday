@@ -90,7 +90,7 @@ export async function downloadAttachments(listings, outDir) {
         const res = await fetch(logo.url);
         if (res.ok) {
           let buf = Buffer.from(await res.arrayBuffer()), ok = /^image\//.test(logo.type || '');
-          if (sharp) { try { buf = await sharp(buf).rotate().resize({ width: 600, height: 600, fit: 'inside', withoutEnlargement: true }).png().toBuffer(); ok = true; } catch { /* keep the original */ } }
+          if (sharp) { try { buf = await sharp(buf).rotate().trim().resize({ width: 600, height: 600, fit: 'inside', withoutEnlargement: true }).png().toBuffer(); ok = true; } catch { /* keep the original */ } }
           if (ok) { await fs.writeFile(path.join(outDir, file), buf); l.logoFile = file; }
         }
       } catch { /* optional */ }
