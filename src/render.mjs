@@ -81,10 +81,17 @@ function photoOrPh(l, i = 0, cls = '', label = 'Photo') {
   if (p) return `<img class="photo" src="${esc(cls)}" alt="${esc(l.name)}" loading="lazy">`.replace('src="', `src="${'{IMG}'}`).replace('{IMG}', '');
   return '';
 }
-function media(l, href, i, label) {
+// Photos are never cropped badly: if the photo's shape is close to the frame's (`frame` = width / height)
+// it fills the frame; otherwise the whole photo is shown over a soft blurred copy of itself.
+function media(l, href, i, label, frame) {
   const p = l.photos[i];
   const ph = PH[(l.name.length + i) % PH.length];
-  if (p) return `<img class="photo" src="${href(`img/${p.file}`)}" alt="${esc(l.name)}" loading="lazy" width="${p.width || ''}" height="${p.height || ''}">`;
+  if (p) {
+    const src = href(`img/${p.file}`);
+    const ratio = p.width && p.height ? p.width / p.height : 0;
+    const fill = Boolean(frame && ratio && Math.abs(Math.log(ratio / frame)) < 0.13);
+    return `<span class="fit${fill ? ' fill' : ''}">${fill ? '' : `<img class="fit-bg" src="${src}" alt="" aria-hidden="true" loading="lazy">`}<img class="photo" src="${src}" alt="${esc(l.name)}" loading="lazy" width="${p.width || ''}" height="${p.height || ''}"></span>`;
+  }
   return `<div class="ph ${ph}" style="width:100%;height:100%" aria-hidden="true">${label || 'Photo coming'}</div>`;
 }
 
@@ -92,7 +99,7 @@ export function card(l, href, S) {
   const tags = [l.featured ? `<span class="chip chip-gold l">${l.partner ? 'Campaign partner' : 'Featured'}</span>` : '', l.sample ? '<span class="chip chip-white r">Sample</span>' : ''].join('');
   const meta = [l.town, l.prices.length ? priceRange(l.prices) : '', l.vouchers ? 'Vouchers' : ''].filter(Boolean).join(' · ');
   return `<a class="card" href="${href(`listing/${l.slug}/`)}">
-  <div class="card-media">${media(l, href, 0)}${tags}</div>
+  <div class="card-media">${media(l, href, 0, undefined, 4 / 3)}${tags}</div>
   <div class="card-body">
     <div class="chips">${l.categories.slice(0, 3).map(c => `<span class="chip">${esc(c)}</span>`).join('')}</div>
     <h3>${esc(l.name)}</h3>
@@ -130,9 +137,9 @@ function footer(S, href) {
     <div><b>Browse</b><a href="${href('browse/')}">All listings</a><a href="${href('for/')}">Who are you buying for</a><a href="${href('price/')}">By budget</a><a href="${href('towns/')}">By town</a><a href="${href('vouchers/')}">Vouchers &amp; experiences</a></div>
     <div><b>Businesses</b><a href="${href('get-listed/')}">Get listed</a><a href="${href('get-listed/', '#tiers')}">Featured &amp; partner packages</a><a href="${href('get-listed/', '#faq')}">Questions</a></div>
     <div><b>About</b><a href="${href('', '#markets')}">Markets calendar</a><a href="${href('a-z/')}">A–Z of businesses</a>${S.contactEmail && !S.contactEmail.startsWith('[') ? `<a href="mailto:${esc(S.contactEmail)}">Contact</a>` : ''}</div>
-    <div><b>An initiative of</b><span style="color:var(--on-navy-2)">Whitsundays Chamber of Commerce and Industry, with regional partners. Listing details are supplied by each business.</span></div>
+    <div><b>An initiative of</b><span style="color:var(--on-navy-2)">Whitsundays Chamber of Commerce and Industry. Listing details are supplied by each business.</span></div>
   </div>
-  <div class="footbar"><span>© ${esc(S.year)} Gift Local | The Whitsundays</span><span>Built by the region's business community</span></div>
+  <div class="footbar"><span>© ${esc(S.year)} Gift Local | The Whitsundays</span><span>An initiative of the Whitsundays Chamber of Commerce and Industry</span></div>
 </div></footer>`;
 }
 
@@ -183,7 +190,7 @@ export function homePage(ctx) {
     <circle cx="1300" cy="420" r="6" fill="#CF4630"/><circle cx="40" cy="380" r="8" fill="#E0A83A"/><circle cx="1180" cy="520" r="5" fill="#1FA9B8"/></svg>`;
   const collage = featuredOrTop.length ? [0, 1, 2, 3].map(i => {
     const l = listings[i % Math.max(listings.length, 1)];
-    return l ? `<div class="ph ${PH[i]}">${media(l, href, 0, ['Local maker', 'Shopfront', 'Experience', 'Markets'][i])}</div>` : `<div class="ph ${PH[i]}">Photo</div>`;
+    return l ? `<div class="ph ${PH[i]}">${media(l, href, 0, ['Local maker', 'Shopfront', 'Experience', 'Markets'][i], 1)}</div>` : `<div class="ph ${PH[i]}">Photo</div>`;
   }).join('') : '';
   const body = `
 <section class="hero">${heroArt}<div class="wrap">
@@ -407,7 +414,7 @@ export function getListedPage(ctx) {
     <div class="faq"><b>Do I have to be a Chamber member?</b><span>No. The guide is for the whole region. Members get the free or discounted rate; non-members pay the standard rate.</span></div>
     <div class="faq"><b>Can I list more than one product?</b><span>Your listing is your business, with your categories and a short description. The price guide shows shoppers what's on offer at each budget.</span></div>
     <div class="faq"><b>What happens after Christmas?</b><span>The site swaps its Christmas look for a year-round one and keeps running. Listings stay live, and the campaign returns each Christmas.</span></div>
-    <div class="faq" style="border:0"><b>Who is behind Gift Local?</b><span>It's an initiative of the Whitsundays Chamber of Commerce and Industry, delivered with regional partners and powered by the businesses that take part.</span></div>
+    <div class="faq" style="border:0"><b>Who is behind Gift Local?</b><span>It's an initiative of the Whitsundays Chamber of Commerce and Industry, powered by the businesses that take part.</span></div>
   </div>
 </div></section>`;
   return layout({ S, href, title: 'List your business', description: 'List your Whitsundays business in the Gift Local gift guide. Free basic listings for Chamber members, featured and campaign partner packages available.', current: 'get-listed', canonical: S.siteUrl ? `${S.siteUrl}/get-listed/` : '', body, topRight: `Registrations close ${esc(S.regClose)}` });
