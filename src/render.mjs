@@ -188,10 +188,9 @@ export function homePage(ctx) {
     `<circle cx="120" cy="92" r="24" fill="#1FA9B8"/><circle cx="1240" cy="134" r="26" fill="#15213A"/><circle cx="1130" cy="82" r="20" fill="#E0A83A"/>
     <path d="M1040 560l12-30 12 30 30 4-22 22 6 32-26-16-26 16 6-32-22-22z" fill="#E0A83A"/>`}
     <circle cx="1300" cy="420" r="6" fill="#CF4630"/><circle cx="40" cy="380" r="8" fill="#E0A83A"/><circle cx="1180" cy="520" r="5" fill="#1FA9B8"/></svg>`;
-  const collage = featuredOrTop.length ? [0, 1, 2, 3].map(i => {
-    const l = listings[i % Math.max(listings.length, 1)];
-    return l ? `<div class="ph ${PH[i]}">${media(l, href, 0, ['Local maker', 'Shopfront', 'Experience', 'Markets'][i], 1)}</div>` : `<div class="ph ${PH[i]}">Photo</div>`;
-  }).join('') : '';
+  // Home page hero: four coloured gift boxes (no listing photos here).
+  const collage = [['ph-coral', '#E0A83A'], ['ph-navy', '#CF4630'], ['ph-gold', '#15213A'], ['ph-aqua', '#FFF7EC']].map(([box, ribbon]) =>
+    `<div class="ph giftbox ${box}"><svg viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><rect x="43" width="14" height="100" fill="${ribbon}"/><rect y="43" width="100" height="14" fill="${ribbon}"/><path d="M50 50c-7-17-27-17-27-6s19 6 27 6zm0 0c7-17 27-17 27-6s-19 6-27 6z" fill="${ribbon}" stroke="rgba(0,0,0,.14)" stroke-width="1"/><circle cx="50" cy="50" r="5.5" fill="${ribbon}" stroke="rgba(0,0,0,.14)" stroke-width="1"/></svg></div>`).join('');
   const body = `
 <section class="hero">${heroArt}<div class="wrap">
   <div class="hero-copy">
