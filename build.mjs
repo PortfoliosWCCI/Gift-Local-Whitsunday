@@ -27,6 +27,8 @@ const listings = approvedRaw.map(R.shapeListing).sort((a, b) => (b.featured - a.
 // De-duplicate slugs
 const seen = new Map();
 for (const l of listings) { const n = seen.get(l.slug) || 0; seen.set(l.slug, n + 1); if (n) l.slug = `${l.slug}-${n + 1}`; }
+// Campaign partners with a logo are shown in the footer of every page.
+S.partnerLogos = listings.filter(l => l.partner && l.logo).map(l => ({ name: l.name, file: l.logo, url: l.website, slug: l.slug }));
 
 const markets = (data.markets || []).filter(m => m['Show on site'] && m.Market).sort((a, b) => String(a.Date || '').localeCompare(String(b.Date || '')));
 
