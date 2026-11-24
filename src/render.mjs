@@ -375,7 +375,7 @@ export function getListedPage(ctx) {
   <span class="eyebrow">For Whitsundays businesses</span><h1 style="color:#fff;font-size:clamp(38px,5.5vw,64px)">Get in front of every ${S.isXmas ? 'Christmas ' : ''}shopper in the region.</h1>
   <p class="lede" style="color:#D8DFEC;max-width:560px">Gift Local is a campaign, not a PDF. A dedicated website, a newspaper lift-out, social content and in-town promotion, all pointing people to businesses like yours. A basic listing is free for every Chamber member in the Whitsundays.</p>
   <div style="display:flex;gap:12px;flex-wrap:wrap;padding-top:6px"><a class="btn btn-coral btn-lg" href="#register">${esc(btnText)}</a><a class="btn btn-lg" href="#tiers" style="border-color:#F6E7D2;color:#F6E7D2">Compare the options</a></div>
-  <div class="stats"><span><b>${esc(S.campaignDates)}</b>campaign dates</span><span><b>${esc(S.regClose)}</b>registrations close</span><span><b>5 mins</b>to register online</span></div>
+  ${S.regClose && !S.regClose.startsWith('[') ? `<div class="stats"><span><b>${esc(S.regClose)}</b>registrations close</span></div>` : ''}
 </div></div></section>
 
 <section id="tiers" class="section"><div class="wrap">
