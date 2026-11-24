@@ -116,7 +116,7 @@ p{margin:0}
 .card-media .chip{position:absolute;top:14px}.card-media .chip.l{left:14px}.card-media .chip.r{right:14px}
 .card-body{display:flex;flex-direction:column;gap:12px;padding:22px}
 .chips{display:flex;gap:6px;flex-wrap:wrap}
-.card h3{font-size:24px}
+.card h3{font-size:24px}.dark .card h3{color:var(--navy)}
 .card p{font-size:15px;line-height:1.5;color:var(--ink-2)}
 .card .meta{font-size:14px;font-weight:700;color:var(--muted)}
 .card-cta{background:var(--navy);border-color:var(--navy);color:var(--on-navy);padding:22px;justify-content:space-between;gap:16px}
