@@ -67,7 +67,7 @@ export function readSettings(rows) {
   return {
     theme, isXmas: theme === 'christmas',
     siteUrl: (s.site_url || '').replace(/\/+$/, ''), year: s.campaign_year || String(new Date().getFullYear()),
-    regClose: s.registration_close || '[DATE]', campaignDates: s.campaign_dates || '[DATE] to 24 December',
+    regClose: /^\s*(\[|$)/.test(s.registration_close || '') ? '' : s.registration_close, campaignDates: s.campaign_dates || '[DATE] to 24 December',
     contactName: s.contact_name || '', contactEmail: s.contact_email || '', contactPhone: s.contact_phone || '',
     formUrl: s.registration_form_url || '', formButton: s.registration_button_text || '', formIntro: s.registration_intro || '', formNote: s.registration_note || '', newspaper: s.newspaper_name || 'the newspaper',
     priceBasic: s.price_basic || 'Free for members', priceFeatured: s.price_featured || '', pricePartner: s.price_partner || '',
@@ -242,7 +242,7 @@ ${markets.length ? `<section id="markets" class="section-tight"><div class="wrap
 
 <section class="section" style="padding-bottom:88px"><div class="wrap">
   <div class="boxed">
-    <div class="c7"><span class="eyebrow">For Whitsundays businesses</span><h2 style="font-size:40px">Sell something people could give? Get listed.</h2><p class="lede" style="font-size:17px">A basic listing is free for every Chamber member in the region. Featured listings and campaign partner packages put you in the newspaper lift-out, on social and at the top of the guide. Registrations close <b>${esc(S.regClose)}</b>.</p>
+    <div class="c7"><span class="eyebrow">For Whitsundays businesses</span><h2 style="font-size:40px">Sell something people could give? Get listed.</h2><p class="lede" style="font-size:17px">A basic listing is free for every Chamber member in the region. Featured listings and campaign partner packages put you in the newspaper lift-out, on social and at the top of the guide.${S.regClose ? ` Registrations close <b>${esc(S.regClose)}</b>.` : ''}</p>
       <div style="display:flex;gap:12px;flex-wrap:wrap;padding-top:8px"><a class="btn btn-navy" href="${href('get-listed/')}">See the options</a><a class="btn btn-ghost" href="${href('get-listed/', '#register')}">${S.formUrl && !/airtable\.com/.test(S.formUrl) ? 'Register your interest' : 'Register now, 5 minutes'}</a></div></div>
     <div class="c5 tiers-mini"><div><span class="display">Free</span><small>Basic listing (members)</small></div><div style="background:var(--blush)"><span class="display" style="color:var(--coral-dk)">Featured</span><small>${esc(S.priceFeatured.split('/')[0].trim() || 'Paid')}</small></div><div style="background:var(--navy)"><span class="display" style="color:var(--gold)">Partner</span><small style="color:var(--on-navy)">${esc(S.pricePartner.split('/')[0].trim() || 'Paid')}</small></div></div>
   </div>
@@ -286,12 +286,12 @@ export function browsePage(ctx, { pagePath, title, eyebrow, intro, items, filter
     <div class="results-bar"><span><b style="color:var(--navy)" data-count>${items.length}</b> business${items.length === 1 ? '' : 'es'}${Object.keys(filter).length ? '' : ' · featured listings first'}</span>
       <label style="display:flex;align-items:center;gap:8px;font-weight:600">Sort <select data-sort><option value="featured">Featured first</option><option value="az">A–Z</option><option value="town">By town</option></select></label></div>
     <div class="grid g3" data-hits>${cards}
-      <div class="card card-cta"><div style="display:flex;flex-direction:column;gap:10px"><span class="eyebrow">Your business here</span><h3>Sell something they'd love?</h3><p>A basic listing is free for Chamber members. Registrations close ${esc(S.regClose)}.</p></div><a class="btn btn-coral" href="${href('get-listed/')}" style="align-self:flex-start">Get listed</a></div>
+      <div class="card card-cta"><div style="display:flex;flex-direction:column;gap:10px"><span class="eyebrow">Your business here</span><h3>Sell something they'd love?</h3><p>A basic listing is free for Chamber members.${S.regClose ? ` Registrations close ${esc(S.regClose)}.` : ''}</p></div><a class="btn btn-coral" href="${href('get-listed/')}" style="align-self:flex-start">Get listed</a></div>
     </div>
     <div class="empty" data-empty hidden>No listings match those filters yet. Try fewer filters, or <a href="${href('browse/')}">see everything</a>.</div>
   </div>
 </div>`;
-  return layout({ S, href, title: title.replace(/<[^>]+>/g, ''), description, current, canonical: S.siteUrl ? `${S.siteUrl}/${canonicalPath}` : '', body, topRight: `Registrations for businesses close ${esc(S.regClose)}` });
+  return layout({ S, href, title: title.replace(/<[^>]+>/g, ''), description, current, canonical: S.siteUrl ? `${S.siteUrl}/${canonicalPath}` : '', body, topRight: S.regClose ? `Registrations for businesses close ${esc(S.regClose)}` : '' });
 }
 
 export function hubPage(ctx, { title, eyebrow, intro, links, current, canonicalPath, description }) {
@@ -375,7 +375,7 @@ export function getListedPage(ctx) {
   <span class="eyebrow">For Whitsundays businesses</span><h1 style="color:#fff;font-size:clamp(38px,5.5vw,64px)">Get in front of every ${S.isXmas ? 'Christmas ' : ''}shopper in the region.</h1>
   <p class="lede" style="color:#D8DFEC;max-width:560px">Gift Local is a campaign, not a PDF. A dedicated website, a newspaper lift-out, social content and in-town promotion, all pointing people to businesses like yours. A basic listing is free for every Chamber member in the Whitsundays.</p>
   <div style="display:flex;gap:12px;flex-wrap:wrap;padding-top:6px"><a class="btn btn-coral btn-lg" href="#register">${esc(btnText)}</a><a class="btn btn-lg" href="#tiers" style="border-color:#F6E7D2;color:#F6E7D2">Compare the options</a></div>
-  ${S.regClose && !S.regClose.startsWith('[') ? `<div class="stats"><span><b>${esc(S.regClose)}</b>registrations close</span></div>` : ''}
+  ${S.regClose ? `<div class="stats"><span><b>${esc(S.regClose)}</b>registrations close</span></div>` : ''}
 </div></div></section>
 
 <section id="tiers" class="section"><div class="wrap">
@@ -393,11 +393,10 @@ export function getListedPage(ctx) {
   </div>
 </div></section>
 
-<section class="section-tight"><div class="wrap"><h2 style="font-size:34px;margin-bottom:24px">How it works</h2><div class="grid g4">
-  <div class="step"><em>1</em><b>Register by ${esc(S.regClose)}</b><span>Five minutes online. Tell us what you sell, who it suits and where to find you.</span></div>
+<section class="section-tight"><div class="wrap"><h2 style="font-size:34px;margin-bottom:24px">How it works</h2><div class="grid g3">
+  <div class="step"><em>1</em><b>Register</b><span>Five minutes online. Tell us what you sell, who it suits and where to find you.</span></div>
   <div class="step"><em>2</em><b>We build your page</b><span>Your listing goes live once it's approved. Check it and send us any tweaks.</span></div>
-  <div class="step"><em>3</em><b>The campaign runs</b><span>Website, lift-out in ${esc(S.newspaper)}, social and in-town promotion, ${esc(S.campaignDates)}.</span></div>
-  <div class="step"><em>4</em><b>It keeps working</b><span>After Christmas the guide switches to a year-round look. Your listing stays live for birthdays, thank-yous and visitors.</span></div>
+  <div class="step"><em>3</em><b>It keeps working</b><span>After Christmas the guide switches to a year-round look. Your listing stays live for birthdays, thank-yous and visitors.</span></div>
 </div></div></section>
 
 <section id="register" style="background:#fff;border-top:1px solid var(--sand);border-bottom:1px solid var(--sand)"><div class="wrap" style="display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:48px;padding-top:64px;padding-bottom:64px;align-items:start">
@@ -416,7 +415,7 @@ export function getListedPage(ctx) {
     <div class="faq" style="border:0"><b>Who is behind Gift Local?</b><span>It's an initiative of the Whitsundays Chamber of Commerce and Industry, powered by the businesses that take part.</span></div>
   </div>
 </div></section>`;
-  return layout({ S, href, title: 'List your business', description: 'List your Whitsundays business in the Gift Local gift guide. Free basic listings for Chamber members, featured and campaign partner packages available.', current: 'get-listed', canonical: S.siteUrl ? `${S.siteUrl}/get-listed/` : '', body, topRight: `Registrations close ${esc(S.regClose)}` });
+  return layout({ S, href, title: 'List your business', description: 'List your Whitsundays business in the Gift Local gift guide. Free basic listings for Chamber members, featured and campaign partner packages available.', current: 'get-listed', canonical: S.siteUrl ? `${S.siteUrl}/get-listed/` : '', body, topRight: S.regClose ? `Registrations close ${esc(S.regClose)}` : '' });
 }
 
 export function azPage(ctx) {
