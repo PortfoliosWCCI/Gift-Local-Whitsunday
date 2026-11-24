@@ -41,6 +41,8 @@ const ICON = {
 };
 
 // ---------- data shaping ----------
+// Businesses often type "www.example.com.au": add the https:// so the link works.
+const fixUrl = u => { u = (u || '').trim(); return !u ? '' : /^https?:\/\//i.test(u) ? u : `https://${u.replace(/^\/+/, '')}`; };
 export function shapeListing(l) {
   const name = l['Business name'] || 'Unnamed business';
   const level = l['Listing level'] || 'Basic';
@@ -52,7 +54,7 @@ export function shapeListing(l) {
     categories: l.Categories || [], buyingFor: l['Good gifts for'] || [], prices: l['Price bands'] || [],
     description: (l.Description || '').trim(),
     vouchers: !!l['Sells gift vouchers'], ships: !!l['Ships Australia-wide'], xmasEve: !!l['Open Christmas Eve'], market: !!l['At a December market'],
-    address: l['Street address'] || '', phone: l.Phone || '', email: l.Email || '', website: l.Website || '', instagram: l.Instagram || '', facebook: l.Facebook || '',
+    address: l['Street address'] || '', phone: l.Phone || '', email: l.Email || '', website: fixUrl(l.Website), instagram: fixUrl(l.Instagram), facebook: fixUrl(l.Facebook),
     hours: (l['Christmas trading hours'] || '').split('\n').map(s => s.trim()).filter(Boolean),
     keyDates: l['Last orders / key dates'] || '',
     photos: l.photoFiles || [], logo: l.logoFile || null,
@@ -132,7 +134,7 @@ function nav(S, href, current) {
 }
 function footer(S, href) {
   return `<footer class="foot"><div class="wrap">
-  <div style="display:flex;flex-direction:column;gap:16px"><span class="eyebrow">Powered by Whitsundays Chamber of Commerce and Industry</span></div>
+  <div style="display:flex;flex-direction:column;gap:16px"><span class="eyebrow">Powered by Whitsundays Chamber of Commerce and Industry</span>${(S.partnerLogos || []).length ? `<div class="partners"><span class="partners-label">Campaign partner${S.partnerLogos.length > 1 ? 's' : ''}</span><div class="partner-logos">${S.partnerLogos.map(p => `<a href="${esc(p.url || href(`listing/${p.slug}/`))}"${p.url ? ' target="_blank" rel="noopener"' : ''} title="${esc(p.name)}"><img src="${href(`img/${p.file}`)}" alt="${esc(p.name)}" loading="lazy"></a>`).join('')}</div></div>` : ''}</div>
   <div class="footcols">
     <div><b>Browse</b><a href="${href('browse/')}">All listings</a><a href="${href('for/')}">Who are you buying for</a><a href="${href('price/')}">By budget</a><a href="${href('towns/')}">By town</a><a href="${href('vouchers/')}">Vouchers &amp; experiences</a></div>
     <div><b>Businesses</b><a href="${href('get-listed/')}">Get listed</a><a href="${href('get-listed/', '#tiers')}">Featured &amp; partner packages</a><a href="${href('get-listed/', '#faq')}">Questions</a></div>
@@ -176,7 +178,7 @@ ${footer(S, href)}
 // ---------- pages ----------
 export function homePage(ctx) {
   const { S, listings, markets, href, counts } = ctx;
-  const featured = listings.filter(l => l.featured).slice(0, 3);
+  const featured = listings.filter(l => l.featured); // all of them: the page shows three at random on each visit
   const featuredOrTop = featured.length >= 3 ? featured : [...featured, ...listings.filter(l => !l.featured)].slice(0, 3);
   const heroArt = `<svg class="hero-art" aria-hidden="true" viewBox="0 0 1360 620" preserveAspectRatio="xMidYMid slice">
     ${S.isXmas ? `<g stroke="#E0A83A" stroke-width="2" fill="none"><path d="M120 0v70"/><path d="M1240 0v110"/><path d="M1130 0v60"/><path d="M60 0v40"/></g>
@@ -219,7 +221,7 @@ export function homePage(ctx) {
 
 ${featuredOrTop.length ? `<section class="dark section" style="margin-top:40px;padding-bottom:80px"><div class="wrap">
   <div class="section-head"><div class="stack"><span class="eyebrow">${featured.length ? 'Featured this week' : 'From the guide'}</span><h2>Meet the people behind the gifts</h2></div><a class="more" href="${href('browse/')}">All listings →</a></div>
-  <div class="grid g3">${featuredOrTop.map(l => card(l, href, S)).join('')}</div>
+  <div class="grid g3"${featuredOrTop.length > 3 ? ' data-rotate' : ''}>${featuredOrTop.map(l => card(l, href, S)).join('')}</div>
 </div></section>` : ''}
 
 <section class="section"><div class="wrap">
@@ -443,6 +445,9 @@ export const SITE_JS = `(function(){
   if(btn&&links){btn.addEventListener('click',function(){var o=links.classList.toggle('open');btn.setAttribute('aria-expanded',o);});}
   var share=document.querySelector('[data-share]');
   if(share){share.addEventListener('click',function(e){if(navigator.clipboard){e.preventDefault();navigator.clipboard.writeText(location.href).then(function(){share.setAttribute('title','Link copied');});}});}
+  function shuffle(a){for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1)),t=a[i];a[i]=a[j];a[j]=t;}return a;}
+  var rot=document.querySelector('[data-rotate]');
+  if(rot){shuffle([].slice.call(rot.children)).forEach(function(k){rot.appendChild(k);});}
   var hits=document.querySelector('[data-hits]');if(!hits)return;
   var cards=[].slice.call(hits.querySelectorAll('.hit')),empty=document.querySelector('[data-empty]'),count=document.querySelector('[data-count]'),q=document.querySelector('[data-q]'),sort=document.querySelector('[data-sort]');
   var boxes=[].slice.call(document.querySelectorAll('.filters input[type=checkbox]'));
@@ -455,10 +460,11 @@ export const SITE_JS = `(function(){
       c.hidden=!ok;if(ok)n++;});
     if(count)count.textContent=n;if(empty)empty.hidden=n>0;
     var sp=new URLSearchParams();Object.keys(a).forEach(function(g){a[g].forEach(function(v){sp.append(g,v)})});history.replaceState(null,'',location.pathname+(sp.toString()?'?'+sp:''));}
+  cards.forEach(function(c){c._r=Math.random();});
   function resort(){var mode=sort?sort.value:'featured';var arr=cards.slice();arr.sort(function(x,y){
     if(mode==='az')return x.getAttribute('data-name').localeCompare(y.getAttribute('data-name'));
     if(mode==='town')return x.getAttribute('data-town').localeCompare(y.getAttribute('data-town'))||x.getAttribute('data-name').localeCompare(y.getAttribute('data-name'));
-    return (y.getAttribute('data-featured')-x.getAttribute('data-featured'))||x.getAttribute('data-name').localeCompare(y.getAttribute('data-name'));});
+    return (y.getAttribute('data-featured')-x.getAttribute('data-featured'))||(+x.getAttribute('data-featured')?x._r-y._r:x.getAttribute('data-name').localeCompare(y.getAttribute('data-name')));});
     var cta=hits.querySelector('.card-cta');arr.forEach(function(c){hits.insertBefore(c,cta);});}
   boxes.forEach(function(b){b.addEventListener('change',apply)});if(q)q.addEventListener('input',apply);if(sort)sort.addEventListener('change',resort);
   resort();apply();
